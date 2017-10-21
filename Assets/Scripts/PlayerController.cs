@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
         Debug.Log("Player Has Attacked!");
+        player.rotateBag = true;
     }
 
     private void OnCollisionEnter(Collision collision)
