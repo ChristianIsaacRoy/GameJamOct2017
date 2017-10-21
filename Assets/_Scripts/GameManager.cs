@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private float nextSpawnTime;
     private float timeSinceSpawn = 0;
 
-    [SerializeField] private int floor = 0;
+    private int floor = 0;
 
     [SerializeField] private List <GameObject> enemies;
     [SerializeField] private List <bool> activeEnemies;
@@ -21,8 +21,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float minSpawnTime = 1.0f;
     [SerializeField] private float maxSpawnTime = 3.0f ;
     [SerializeField] private float spawnMultiplier = 0.9f;
-    [SerializeField] private float interludeTime = 3.0f;
+    [SerializeField] private float interludeTime = 8.0f;
     [SerializeField] private float roundTime = 30.0f;
+
+    [SerializeField] private UI_GameOverScreen storeScreen;
+    [SerializeField] private UI_Countdown downcount;
+
     private bool pause = false;
     private float timer = 0;
 
@@ -52,6 +56,12 @@ public class GameManager : MonoBehaviour
         pause = false;
     }
 
+    public void StartLevel()
+    {
+        pause = false;
+        NextFloor();
+    }
+
     private void Update()
     {
         if (!pause)
@@ -69,11 +79,11 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // Ohphyn Stohrp
+                // Ohphyn Stohrp 
+                storeScreen.Enable();
                 pause = true;
                 levelActive = false;
                 timer = interludeTime;
-                NextFloor();
             }
         }
 
@@ -93,6 +103,7 @@ public class GameManager : MonoBehaviour
             minSpawnTime *= spawnMultiplier;
             maxSpawnTime *= spawnMultiplier;
         }
+        downcount.Enable();
     }
 
     public void PlayerDead()

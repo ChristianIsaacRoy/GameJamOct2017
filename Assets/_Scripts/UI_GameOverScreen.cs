@@ -5,14 +5,24 @@ using DG.Tweening;
 
 public class UI_GameOverScreen : MonoBehaviour {
 
-	// Use this for initialization
-	void Start ()
+    Vector3 start;
+
+    // Use this for initialization
+    void OnEnable()
     {
+        start = transform.position;
         transform.DOLocalMove(Vector3.zero, 1.0f);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void Reset()
+    {
+        transform.localPosition = start;
+        gameObject.SetActive(false);
+    }
+
+    // wow, much happen, very able
+    public void Enable()
+    {
+        gameObject.SetActive(true);
+    }
 }
