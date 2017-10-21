@@ -24,16 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         if (player.canMove)
         {
-            if (Input.GetKey(KeyCode.W))
-                player.MoveForward();
-            if (Input.GetKey(KeyCode.S))
-                player.MoveBack();
-            if (Input.GetKey(KeyCode.A))
-                player.MoveLeft();
-            if (Input.GetKey(KeyCode.D))
-                player.MoveRight();
-            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-                player.NotMoving();
+            player.Move();
         }
     }
 
