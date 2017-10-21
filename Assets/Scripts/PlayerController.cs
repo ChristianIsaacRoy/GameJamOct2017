@@ -52,17 +52,13 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
-        Debug.Log("Player Has Attacked!");
         player.rotateBag = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision Has Occured!");
-        Debug.Log(collision.GetType());
         if(collision.gameObject.tag == "Enemy" && !player.isInvincible)
         {
-            Debug.Log("The Collision is from an enemy!");
             player.TakeDamage(collision.gameObject.GetComponent<Enemy>().atkDamage);
             player.setKnockedBack(true, (this.transform.position - collision.transform.position).normalized);
             player.setInvincibility(true);

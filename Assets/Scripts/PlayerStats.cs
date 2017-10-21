@@ -64,7 +64,6 @@ public class PlayerStats : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         speed = 5;
         knockAcceleration = 2 * (knockBackDistance - initialKnockbackVelocity * timeKnocked) / (timeKnocked * timeKnocked);
-        Debug.Log(knockAcceleration);
         bagIsRight = false;
         baseDamage = 10;
         bagLeftPosition = new Vector3(-0.3209f, 0.75f, -0.1936f);
@@ -126,8 +125,6 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float damageAmt)
     {
-        Debug.Log(damageAmt);
-        Debug.Log(isInvincible);
         SoundEffectManager.instance.PlayTakeDamage();
         if (!isInvincible)
         {
@@ -299,7 +296,6 @@ public class PlayerStats : MonoBehaviour
         if(rotateBag)
         {
             float angle = bag.transform.localEulerAngles.y;
-            Debug.Log(angle);
             if (angle > 180)
             {
                 angle = angle - 360;
