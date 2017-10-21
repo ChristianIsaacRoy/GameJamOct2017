@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
         Move();
         if (Input.GetKey(KeyCode.Space))
             Attack();
+
 	}
 
     private void Move()
@@ -43,9 +44,10 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Collision Has Occured!");
         Debug.Log(collision.GetType());
-        if(collision.GetType() == null)
+        if(collision.gameObject.tag == "Enemy")
         {
-            player.setKnockedBack(true);
+            Debug.Log("The Collision is from an enemy!");
+            player.setKnockedBack(true, (this.transform.position - collision.transform.position).normalized);
         }
     }
 
