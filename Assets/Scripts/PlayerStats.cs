@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+<<<<<<< HEAD
     public Rigidbody bag;
     private bool bagIsRight;
     public bool rotateBag;
 
+=======
+    public Text amtCandyText;
+    public Text amtCandyCapacityText;
+>>>>>>> 00d7fbbdcdac2f23b35c27757b2f959646e5e12d
     public float speed { get; private set; }
     public bool canMove = true;
     private float candyAmt = 1;
@@ -58,6 +64,8 @@ public class PlayerStats : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        amtCandyText.text = candyAmt.ToString();
+        amtCandyCapacityText.text = candyCapacity.ToString();
         KnockedBack();
         TestInvincibility();
         bag.velocity = rb.velocity;
