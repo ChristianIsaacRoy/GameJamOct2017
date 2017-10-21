@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
     public Text amtCandyCapacityText;
     public float speed { get; private set; }
     public bool canMove = true;
-    private float candyAmt = 1;
+    private float candyAmt;
     private bool isKnockedBack = false;
     public bool isInvincible = false;
     private Rigidbody rb;
@@ -62,7 +62,11 @@ public class PlayerStats : MonoBehaviour
         baseDamage = 10;
         bagLeftPosition = new Vector3(-0.3209f, 0.75f, -0.1936f);
         bagRightPosition = new Vector3(-0.1414f, 0.75f, 0.3471f);
-	}
+        candyAmt = 10;
+        candyCapacity = 10;
+        defense = 1;
+        isInvincible = false;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -79,6 +83,7 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         //Call GameManager object that kills the player
+        GameManager.instance.PlayerDead();
     }
     public void UpgradeSpeed(float increaseAmt)
     {
@@ -104,9 +109,15 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(float damageAmt)
     {
+        Debug.Log(damageAmt);
+        Debug.Log(isInvincible);
         if (!isInvincible)
         {
-            candyAmt -= damageAmt + defense;
+            candyAmt -= damageAmt - defense;
+            if (candyAmt <= 0)
+            {
+                Die();
+            }
             //Spawn Candy
         }
     }
