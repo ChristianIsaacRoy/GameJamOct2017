@@ -18,7 +18,15 @@ public class BagTrigger : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && player.rotateBag)
+        {
+            other.GetComponent<Enemy>().Damage(player.damage);
+        }
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy" && player.rotateBag)
         {
             other.GetComponent<Enemy>().Damage(player.damage);
         }
