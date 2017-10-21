@@ -9,6 +9,8 @@ public class PlayerStats : MonoBehaviour
     private uint candyAmt = 1;
     private bool isKnockedBack = false;
     private bool isInvincible = false;
+    private uint knockedTimer;
+    private uint invincibilityTimer;
     [SerializeField]
     private uint defense;
     [SerializeField]
@@ -24,7 +26,6 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private uint timeInvincible = 5;
 
-    private uint knockedTimer;
 
     // Use this for initialization
     void Start ()
@@ -36,7 +37,7 @@ public class PlayerStats : MonoBehaviour
 	void Update ()
     {
         KnockedBack();
-        
+        TestInvincibility();      
     }
 
     private void Die()
@@ -71,8 +72,6 @@ public class PlayerStats : MonoBehaviour
         {
             candyAmt -= damageAmt + defense;
             //Spawn Candy
-            KnockedBack();
-            GetInvincibility();
         }
     }
     public void AddCandy(uint addedCandy)
@@ -124,19 +123,28 @@ public class PlayerStats : MonoBehaviour
             }
         }
     }
-
-
-
-    private void GetInvincibility()
+    public void setInvincibility(bool b)
     {
-        isInvincible = true;
-        if (timeInvincible > 0)
+        if (b)
         {
-            timeInvincible -= (uint)Time.deltaTime;
+            isInvincible = true;
+            invincibilityTimer = timeInvincible;
         }
         else
         {
             isInvincible = false;
+        }
+    }
+
+    private void TestInvincibility()
+    {
+        if (isInvincible)
+        {
+            invincibilityTimer -= (uint)Time.deltaTime;
+            if(invincibilityTimer < 0)
+            {
+                isInvincible = false;
+            }
         }
     }
 }
