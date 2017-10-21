@@ -15,7 +15,7 @@ public class Candy : MonoBehaviour
         {
             player.AddCandy(amtOfCandy);
         }
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
 }
