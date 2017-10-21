@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public uint speed { get; private set; }
+    public float speed { get; private set; }
     public bool canMove = true;
     private uint candyAmt = 1;
     private bool isKnockedBack = false;
     private bool isInvincible = false;
+<<<<<<< HEAD
+    private Rigidbody rb;
+=======
+    private uint knockedTimer;
+    private uint invincibilityTimer;
+>>>>>>> 37312b7b5a01c4d7d6f0d05c1883a066f9eb60eb
     [SerializeField]
     private uint defense;
     [SerializeField]
@@ -16,27 +22,39 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private uint maxDefense;
     [SerializeField]
-    private uint maxSpeed;
+    private float maxSpeed;
     [SerializeField]
     private uint maxCandyCapacity;
     [SerializeField]
-    private uint timeKnocked = 1;
+    private float knockBackDistance;
     [SerializeField]
-    private uint timeInvincible = 5;
+    private float timeKnocked = 0.5f;
+    [SerializeField]
+    private float timeInvincible = 5f;
+    [SerializeField]
+    private float initialKnockbackVelocity;
 
-    private uint knockedTimer;
+<<<<<<< HEAD
+    private float knockAcceleration;
+    private float knockedTimer;
+    private Vector3 knockedDirection;
+=======
+>>>>>>> 37312b7b5a01c4d7d6f0d05c1883a066f9eb60eb
 
     // Use this for initialization
     void Start ()
     {
+        rb = GetComponent<Rigidbody>();
         speed = 5;
+        knockAcceleration = 2 * (knockBackDistance - initialKnockbackVelocity * timeKnocked) / (timeKnocked * timeKnocked);
+        Debug.Log(knockAcceleration);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
         KnockedBack();
-        
+        TestInvincibility();      
     }
 
     private void Die()
@@ -71,8 +89,6 @@ public class PlayerStats : MonoBehaviour
         {
             candyAmt -= damageAmt + defense;
             //Spawn Candy
-            KnockedBack();
-            GetInvincibility();
         }
     }
     public void AddCandy(uint addedCandy)
@@ -97,17 +113,21 @@ public class PlayerStats : MonoBehaviour
         transform.position += Vector3.right * Time.deltaTime * speed;
     }
 
-    public void setKnockedBack(bool b)
+    public void setKnockedBack(bool b, Vector3 unitDirection)
     {
+        Debug.Log(unitDirection);
         if (b)
         {
             isKnockedBack = true;
             canMove = false;
             knockedTimer = timeKnocked;
+            knockedDirection = unitDirection;
+            rb.velocity = initialKnockbackVelocity * unitDirection;
         } else
         {
             canMove = true;
             isKnockedBack = false;
+            rb.velocity = unitDirection;
         }
     }
 
@@ -116,27 +136,39 @@ public class PlayerStats : MonoBehaviour
         if (isKnockedBack)
         {
             // Make some knockback movement
+            rb.velocity += knockAcceleration * knockedDirection * Time.deltaTime;
 
-            knockedTimer -= (uint)Time.deltaTime;
+            // Update Knockback Timer
+            knockedTimer -= Time.deltaTime;
+            Debug.Log(knockedTimer);
             if (knockedTimer < 0)
             {
-                setKnockedBack(false);
+                setKnockedBack(false, new Vector3(0f, 0f, 0f));
             }
         }
     }
-
-
-
-    private void GetInvincibility()
+    public void setInvincibility(bool b)
     {
-        isInvincible = true;
-        if (timeInvincible > 0)
+        if (b)
         {
-            timeInvincible -= (uint)Time.deltaTime;
+            isInvincible = true;
+            invincibilityTimer = timeInvincible;
         }
         else
         {
             isInvincible = false;
+        }
+    }
+
+    private void TestInvincibility()
+    {
+        if (isInvincible)
+        {
+            invincibilityTimer -= (uint)Time.deltaTime;
+            if(invincibilityTimer < 0)
+            {
+                isInvincible = false;
+            }
         }
     }
 }
