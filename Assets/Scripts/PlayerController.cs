@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
                 player.MoveLeft();
             if (Input.GetKey(KeyCode.D))
                 player.MoveRight();
+            if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                player.NotMoving();
         }
     }
 
@@ -45,15 +47,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Collision Has Occured!");
         Debug.Log(collision.GetType());
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.tag == "Enemy" && !player.isInvincible)
         {
-<<<<<<< HEAD
             Debug.Log("The Collision is from an enemy!");
             player.setKnockedBack(true, (this.transform.position - collision.transform.position).normalized);
-=======
-            player.setKnockedBack(true);
             player.setInvincibility(true);
->>>>>>> 37312b7b5a01c4d7d6f0d05c1883a066f9eb60eb
         }
     }
 
