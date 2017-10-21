@@ -126,6 +126,7 @@ public class Enemy : MonoBehaviour {
     public void Damage(float damage)
     {
         health -= damage;
+        SoundEffectManager.instance.PlaySwing();
         if (health <= 0)
         {
             Die();

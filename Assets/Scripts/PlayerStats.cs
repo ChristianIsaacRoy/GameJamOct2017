@@ -93,6 +93,7 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         //Call GameManager object that kills the player
+        SoundEffectManager.instance.PlayDie();
         GameManager.instance.PlayerDead();
     }
     public void UpgradeSpeed(float increaseAmt)
@@ -124,6 +125,7 @@ public class PlayerStats : MonoBehaviour
     {
         Debug.Log(damageAmt);
         Debug.Log(isInvincible);
+        SoundEffectManager.instance.PlayTakeDamage();
         if (!isInvincible)
         {
             candyAmt -= damageAmt - defense;
@@ -140,6 +142,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void AddCandy(float addedCandy)
     {
+        SoundEffectManager.instance.PlayGetCandy();
         if (candyAmt + addedCandy > candyCapacity)
             candyAmt = candyCapacity;
         else 
