@@ -7,15 +7,57 @@ public class Enemy : MonoBehaviour {
 
 
     public GameObject focus;
-    float speed = 0.01f;
-    public float radius = 5.0f;
+
+    public float room_level = 1;
+
+    public float base_attack = 1;
+    private float current_attack = 1;
+
+    public float base_health = 1;
+    private float current_health = 1;
+
+    private float base_aggression_range = 10.0f;
+    private float current_aggression_range = 10.0f;
+
+    private float base_movement_speed = 0.1f;
+    private float current_movement_speed = 0.1f;
+
+    private int enemy_type;
+    enum ENEMY_TYPE
+    {
+        TYPE_1,
+        TYPE_2,
+        TYPE_3
+    }
 
 
     // Use this for initialization
     void Start () {
+        enemy_type = Random.Range(0, 3);
 
+        if (enemy_type.Equals(ENEMY_TYPE.TYPE_1))
+        {
+            current_health = base_health + room_level / 5;
+            current_attack = base_attack + room_level;
+            current_movement_speed = (Mathf.Floor((room_level) / 5) * base_movement_speed * 2 + base_movement_speed);
+            current_aggression_range = (Mathf.Floor(room_level / 3) * base_aggression_range + base_aggression_range);
+        }
+        if (enemy_type.Equals(ENEMY_TYPE.TYPE_2))
+        {
+            current_health = base_health + room_level * 2;
+            current_attack = base_attack + room_level * 1.25f;
+            current_movement_speed = ((Mathf.Floor((room_level) / 5) * base_movement_speed / 3) + (base_movement_speed / 3));
+            current_aggression_range = ((Mathf.Floor(room_level / 3) * base_aggression_range * 3) + (base_aggression_range * 3));
+        }
+        if (enemy_type.Equals(ENEMY_TYPE.TYPE_3))
+        {
+            current_health = base_health + room_level / 3;
+            current_attack = base_attack + room_level;
+            current_movement_speed = (Mathf.Floor((room_level) / 5) * base_movement_speed + base_movement_speed);
+            current_aggression_range = (Mathf.Floor(room_level / 3) * base_aggression_range + base_aggression_range);
+        }
 
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,7 +66,7 @@ public class Enemy : MonoBehaviour {
 
         if (CheckPosition())
         {
-            transform.position = Vector3.MoveTowards(transform.position, focus.transform.position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, focus.transform.position, current_movement_speed);
             FaceObject();
         }
         Hit();
@@ -44,7 +86,8 @@ public class Enemy : MonoBehaviour {
 
         if (Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= 1.2)
         {
-            //gameObject.SendMessage("TakeDamage");
+
+            focus.SendMessage("TakeDamage", current_attack);
             //Die();
 
         }
@@ -55,7 +98,7 @@ public class Enemy : MonoBehaviour {
     {
 
         bool isClose = false;
-        if(Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= radius)
+        if(Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= current_aggression_range)
         {
             isClose = true;
         }
