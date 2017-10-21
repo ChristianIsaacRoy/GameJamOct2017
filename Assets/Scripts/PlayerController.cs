@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     PlayerStats player;
+
 	// Use this for initialization
 	void Start ()
     {
+       
 	}
 	
 	// Update is called once per frame
@@ -44,6 +46,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("The Collision is from an enemy!");
             player.setKnockedBack(true, (this.transform.position - collision.transform.position).normalized);
             player.setInvincibility(true);
+        }
+        if(collision.gameObject.tag == "Door")
+        {
+            player.setKnockedBack(true, (this.transform.position - collision.transform.position).normalized);
         }
     }
 
