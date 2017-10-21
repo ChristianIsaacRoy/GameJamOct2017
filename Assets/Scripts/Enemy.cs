@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour {
         {
 
             focus.SendMessage("TakeDamage", current_attack);
-            //Die();
+            Die();
 
         }
 
@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
 
-        
+        Destroy(this);
 
     }
 
