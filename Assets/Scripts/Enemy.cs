@@ -13,21 +13,21 @@ public class Enemy : MonoBehaviour {
     public float room_level = 1;
 
     public float base_attack = 1;
-    private float current_attack = 1;
+    public float current_attack = 1;
 
     public float base_health = 1;
-    private float current_health = 1;
+    public float current_health = 1;
 
-    private float base_aggression_range = 10.0f;
-    private float current_aggression_range = 10.0f;
-
-    [SerializeField]
-    private float base_movement_speed = 0.04f;
-    [SerializeField]
-    private float current_movement_speed = 0.04f;
+    public float base_aggression_range = 10.0f;
+    public float current_aggression_range = 10.0f;
 
     [SerializeField]
-    private int enemy_type;
+    public float base_movement_speed = 0.04f;
+    [SerializeField]
+    public float current_movement_speed = 0.04f;
+
+    [SerializeField]
+    public int enemy_type;
 
     private Rigidbody rb;
 
@@ -82,7 +82,8 @@ public class Enemy : MonoBehaviour {
 
         if (CheckPosition())
         {
-            transform.position = Vector3.MoveTowards(transform.position, focus.transform.position, current_movement_speed);
+            rb.velocity = (focus.transform.position - transform.position).normalized * current_movement_speed;
+            transform.position += rb.velocity;
             FaceObject();
         }
 
@@ -95,19 +96,6 @@ public class Enemy : MonoBehaviour {
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
-
-    //public void Hit()
-    //{
-
-    //    if (Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= 1.2)
-    //    {
-
-    //        focus.SendMessage("TakeDamage", current_attack);
-    //        Die();
-
-    //    }
-
-    //}
 
     public bool CheckPosition()
     {
