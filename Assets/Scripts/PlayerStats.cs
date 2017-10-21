@@ -114,6 +114,13 @@ public class PlayerStats : MonoBehaviour
         rb.velocity = new Vector3(0f, 0f, 0f);
     }
 
+    public void Move()
+    {
+
+        rb.velocity = new Vector3(speed * Input.GetAxis("Horizontal") * Time.deltaTime, 0, speed * Input.GetAxis("Vertical") * Time.deltaTime);
+        rb.position += rb.velocity;
+    }
+
     public void setKnockedBack(bool b, Vector3 unitDirection)
     {
         if (b)
