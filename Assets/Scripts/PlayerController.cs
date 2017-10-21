@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    PlayerStats stats;
+    PlayerStats player;
 	// Use this for initialization
 	void Start ()
     {
@@ -21,15 +21,19 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (Input.GetKey(KeyCode.W))
-            transform.position += Vector3.forward * Time.deltaTime * stats.speed;
-        if (Input.GetKey(KeyCode.S))
-            transform.position += Vector3.back * Time.deltaTime * stats.speed;
-        if (Input.GetKey(KeyCode.A))
-            transform.position += Vector3.left * Time.deltaTime * stats.speed;
-        if (Input.GetKey(KeyCode.D))
-            transform.position += Vector3.right * Time.deltaTime * stats.speed;
+        if (player.canMove)
+        {
+            if (Input.GetKey(KeyCode.W))
+                player.MoveForward();
+            if (Input.GetKey(KeyCode.S))
+                player.MoveBack();
+            if (Input.GetKey(KeyCode.A))
+                player.MoveLeft();
+            if (Input.GetKey(KeyCode.D))
+                player.MoveRight();
+        }
     }
+<<<<<<< HEAD
 
     private void Attack()
     {
@@ -48,4 +52,6 @@ public class PlayerController : MonoBehaviour
 
 
 
+=======
+>>>>>>> 17bec37227080de20838f4cd9c11a265dc3982c8
 }
