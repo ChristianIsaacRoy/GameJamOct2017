@@ -6,16 +6,25 @@ public class Candy : MonoBehaviour
 {
     [SerializeField]
     private float amtOfCandy;
-    [SerializeField]
     private PlayerStats player;
+    private bool canPickup = false;
+    
 
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerStats>();
+    }
+    public void SetCanPickup()
+    {
+        canPickup = true;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" && canPickup)
         {
             player.AddCandy(amtOfCandy);
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
     }
 
 }
