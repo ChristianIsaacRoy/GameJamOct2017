@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gameManager;
+    public static GameManager instance;
 
     private bool levelActive = false;
     private float nextSpawnTime;
@@ -33,13 +33,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if( gameManager != null)
+        if( instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        gameManager = this;
+        instance = this;
         DontDestroyOnLoad(gameObject);
 
         timer = interludeTime;
@@ -110,8 +110,4 @@ public class GameManager : MonoBehaviour
 
         Instantiate(enemies[enemy], spawners[spawner]);
     }
-  
-
-
-
 }
