@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour {
 
     
     public GameObject focus;
+    public GameObject candy;
     public PlayerStats player;
 
     public float health;
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        focus = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
 
         enemy_type = Random.Range(0, 3);
@@ -117,7 +118,7 @@ public class Enemy : MonoBehaviour {
 
     public void Die()
     {
-
+        Instantiate(candy, transform.position, transform.rotation).GetComponent<Candy>().SetCanPickup();
         Destroy(this.gameObject);
 
     }

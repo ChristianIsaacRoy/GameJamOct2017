@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerStats : MonoBehaviour
 {
     public Rigidbody bag;
     private bool bagIsRight;
+    public GameObject candy;
     public bool rotateBag;
     public Text amtCandyText;
     public Text amtCandyCapacityText;
@@ -15,8 +17,11 @@ public class PlayerStats : MonoBehaviour
     private float candyAmt;
     private bool isKnockedBack = false;
     public bool isInvincible = false;
+    
     private Rigidbody rb;
     private float invincibilityTimer;
+    [SerializeField]
+    private float costOfUpgrade;
     [SerializeField]
     private float defense;
     [SerializeField]
@@ -68,8 +73,12 @@ public class PlayerStats : MonoBehaviour
         candyCapacity = 10;
         defense = 1;
         isInvincible = false;
+<<<<<<< HEAD
 
         facing = "up";
+=======
+        costOfUpgrade = 1;
+>>>>>>> 3c75d836b44399bdb5fc4ce2c1679892f335ddb6
     }
 	
 	// Update is called once per frame
@@ -95,13 +104,15 @@ public class PlayerStats : MonoBehaviour
             speed = maxSpeed;
         else
             speed += increaseAmt;
+        candyAmt -= costOfUpgrade;
     }
     public void UpgradeDefense(float increaseAmt)
     {
         if (defense + increaseAmt >= maxDefense)
             defense = maxDefense;
         else
-            defense += increaseAmt;   
+            defense += increaseAmt;
+        candyAmt -= costOfUpgrade;
     }
     public void UpgradeCandyCapacity(float increaseAmt)
     {
@@ -109,6 +120,7 @@ public class PlayerStats : MonoBehaviour
             candyCapacity = maxCandyCapacity;
         else
             candyCapacity += increaseAmt;
+        candyAmt -= costOfUpgrade;
     }
 
     public void TakeDamage(float damageAmt)
@@ -123,12 +135,18 @@ public class PlayerStats : MonoBehaviour
                 candyAmt = 0;
                 Die();
             }
-            //Spawn Candy
+            GameObject go = Instantiate( candy, transform.position,transform.rotation);
+            Vector3 dest = Random.insideUnitCircle * Random.Range(.5f, 2f);
+            go.transform.DOJump(new Vector3(dest.x + transform.position.x,0,dest.y + transform.position.z), Random.Range(1f, 3f), 1, Random.Range(.5f, 1.5f)).OnComplete(go.GetComponent<Candy>().SetCanPickup);
+
         }
     }
     public void AddCandy(float addedCandy)
     {
-        candyAmt += addedCandy;
+        if (candyAmt + addedCandy > candyCapacity)
+            candyAmt = candyCapacity;
+        else 
+            candyAmt += addedCandy;
     }
 
     public void MoveForward()
