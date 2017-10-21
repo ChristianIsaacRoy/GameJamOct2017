@@ -73,12 +73,9 @@ public class PlayerStats : MonoBehaviour
         candyCapacity = 10;
         defense = 1;
         isInvincible = false;
-<<<<<<< HEAD
 
         facing = "up";
-=======
         costOfUpgrade = 1;
->>>>>>> 3c75d836b44399bdb5fc4ce2c1679892f335ddb6
     }
 	
 	// Update is called once per frame
