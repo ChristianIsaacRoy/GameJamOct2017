@@ -46,6 +46,11 @@ public class PlayerStats : MonoBehaviour
     private float knockedTimer;
     private Vector3 knockedDirection;
 
+    public Vector3 bagLeftPosition;
+    public Vector3 bagRightPosition;
+
+    private CapsuleCollider bagCollider;
+
     // Use this for initialization
     void Start ()
     {
@@ -55,6 +60,8 @@ public class PlayerStats : MonoBehaviour
         Debug.Log(knockAcceleration);
         bagIsRight = false;
         baseDamage = 10;
+        bagLeftPosition = new Vector3(-0.3209f, 0.75f, -0.1936f);
+        bagRightPosition = new Vector3(-0.1414f, 0.75f, 0.3471f);
 	}
 	
 	// Update is called once per frame
@@ -219,6 +226,7 @@ public class PlayerStats : MonoBehaviour
                     bag.transform.RotateAround(this.transform.position, Vector3.up, -45 - angle);
                     bagIsRight = false;
                     rotateBag = false;
+                    bag.transform.localPosition = bagLeftPosition;
                 }
             } else
             {
@@ -229,6 +237,7 @@ public class PlayerStats : MonoBehaviour
                     bag.transform.RotateAround(this.transform.position, Vector3.up, 45 - angle);
                     bagIsRight = true;
                     rotateBag = false;
+                    bag.transform.localPosition = bagRightPosition;
                 }
             }
         }

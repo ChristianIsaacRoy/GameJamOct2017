@@ -22,9 +22,9 @@ public class Enemy : MonoBehaviour {
     public float current_aggression_range = 10.0f;
 
     [SerializeField]
-    public float base_movement_speed = 0.04f;
+    public float base_movement_speed = 1f;
     [SerializeField]
-    public float current_movement_speed = 0.04f;
+    public float current_movement_speed = 1f;
 
     [SerializeField]
     public int enemy_type;
@@ -78,12 +78,10 @@ public class Enemy : MonoBehaviour {
 
         getFocus();
 
-        rb.velocity = new Vector3(0f, 0f, 0f);
-
-        if (CheckPosition())
+        if (true)
         {
             rb.velocity = (focus.transform.position - transform.position).normalized * current_movement_speed;
-            transform.position += rb.velocity;
+            //transform.position += rb.velocity;
             FaceObject();
         }
 
@@ -111,7 +109,7 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
 
-        Destroy(this);
+        Destroy(this.gameObject);
 
     }
 
