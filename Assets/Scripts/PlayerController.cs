@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 	void Update ()
     {
         Move();
+        if (Input.GetKey(KeyCode.Space))
+            Attack();
 	}
 
     private void Move()
@@ -28,5 +30,21 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             transform.position += Vector3.right * Time.deltaTime * stats.speed;
     }
+
+    private void Attack()
+    {
+        Debug.Log("Player Has Attacked!");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision Has Occured!");
+        //if(collision.GetType() = Enemy)
+        //{
+            
+        //}
+    }
+
+
 
 }
