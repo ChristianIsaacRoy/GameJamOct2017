@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-
+    public uint speed { get; private set; }
+    public bool canMove = true;
+    private uint candyAmt = 1;
+    private bool isKnockedBack = false;
+    private bool isInvincible = false;
     [SerializeField]
     private uint defense;
     [SerializeField]
@@ -15,14 +19,15 @@ public class PlayerStats : MonoBehaviour
     private uint maxSpeed;
     [SerializeField]
     private uint maxCandyCapacity;
-    public uint speed { get; private set; }
-    private uint candyAmt;
+    [SerializeField]
+    private uint timeKnocked = 1;
+    [SerializeField]
+    private uint timeInvincible = 5;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         speed = 5;
-        candyAmt = 1;
 	}
 	
 	// Update is called once per frame
@@ -57,14 +62,54 @@ public class PlayerStats : MonoBehaviour
             candyCapacity += increaseAmt;
     }
 
-    public void TakeDamage(uint DamageAmt)
+    public void TakeDamage(uint damageAmt)
     {
-        candyAmt -= DamageAmt;
-        //Spawn Candy
+        if (!isInvincible)
+        {
+            candyAmt -= damageAmt + defense;
+            //Spawn Candy
+            KnockedBack();
+            GetInvincibility();
+        }
     }
-    public void AddCandy()
+    public void AddCandy(uint addedCandy)
     {
-        
+        candyAmt += addedCandy;
     }
 
+    public void MoveForward()
+    {
+        transform.position += Vector3.forward * Time.deltaTime * speed;
+    }
+    public void MoveBack()
+    {
+        transform.position += Vector3.back * Time.deltaTime * speed;
+    }
+    public void MoveLeft()
+    {
+        transform.position += Vector3.left * Time.deltaTime * speed;
+    }
+    public void MoveRight()
+    {
+        transform.position += Vector3.right * Time.deltaTime * speed;
+    }
+    private void KnockedBack()
+    {
+        canMove = false;
+        //Add Knockback
+        while(timeKnocked > 0)
+        {
+            timeKnocked -= (uint)Time.deltaTime;
+        }
+        canMove = true;
+    }
+    private void GetInvincibility()
+    {
+        isInvincible = true;
+        while(timeInvincible > 0)
+        {
+            timeInvincible -= (uint)Time.deltaTime;
+        }
+        isInvincible = false;
+    }
 }
