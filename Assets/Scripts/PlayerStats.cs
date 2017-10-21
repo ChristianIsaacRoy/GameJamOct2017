@@ -64,8 +64,8 @@ public class PlayerStats : MonoBehaviour
         amtCandyCapacityText.text = candyCapacity.ToString();
         KnockedBack();
         TestInvincibility();
-        bag.velocity = rb.velocity;
         RotateBag();
+        bag.velocity = rb.velocity;
         damage = baseDamage * (candyAmt);
     }
 
@@ -140,8 +140,8 @@ public class PlayerStats : MonoBehaviour
     public void Move()
     {
 
-        rb.velocity = new Vector3(speed * Input.GetAxis("Horizontal") * Time.deltaTime, 0, speed * Input.GetAxis("Vertical") * Time.deltaTime);
-        rb.position += rb.velocity;
+        rb.velocity = new Vector3(speed * Input.GetAxis("Horizontal"), 0, speed * Input.GetAxis("Vertical"));
+        //rb.position += rb.velocity;
     }
 
     public void setKnockedBack(bool b, Vector3 unitDirection)
