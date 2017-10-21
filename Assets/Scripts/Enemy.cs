@@ -7,8 +7,10 @@ public class Enemy : MonoBehaviour {
 
     
     public GameObject focus;
+    public PlayerStats player;
 
     public float health;
+    public float atkDamage;
 
     public float room_level = 1;
 
@@ -46,30 +48,37 @@ public class Enemy : MonoBehaviour {
 
         enemy_type = Random.Range(0, 3);
 
-        if (enemy_type.Equals(ENEMY_TYPE.TYPE_1))
+        atkDamage = 3;
+
+        if (enemy_type == 0)
         {
             current_health = base_health + room_level / 5;
             current_attack = base_attack + room_level;
             current_movement_speed = (Mathf.Floor((room_level) / 5) * base_movement_speed * 2 + base_movement_speed);
             current_aggression_range = (Mathf.Floor(room_level / 3) * base_aggression_range + base_aggression_range);
             health = 5;
+            atkDamage = 5;
         }
-        if (enemy_type.Equals(ENEMY_TYPE.TYPE_2))
+        if (enemy_type == 1)
         {
             current_health = base_health + room_level * 2;
             current_attack = base_attack + room_level * 1.25f;
             current_movement_speed = ((Mathf.Floor((room_level) / 5) * base_movement_speed / 3) + (base_movement_speed / 3));
             current_aggression_range = ((Mathf.Floor(room_level / 3) * base_aggression_range * 3) + (base_aggression_range * 3));
             health = 5;
+            atkDamage = 5;
         }
-        if (enemy_type.Equals(ENEMY_TYPE.TYPE_3))
+        if (enemy_type == 2)
         {
             current_health = base_health + room_level / 3;
             current_attack = base_attack + room_level;
             current_movement_speed = (Mathf.Floor((room_level) / 5) * base_movement_speed + base_movement_speed);
             current_aggression_range = (Mathf.Floor(room_level / 3) * base_aggression_range + base_aggression_range);
             health = 5;
+            atkDamage = 5;
         }
+
+        player = FindObjectOfType<PlayerStats>();
 
     }
 	
