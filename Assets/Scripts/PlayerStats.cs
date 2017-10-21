@@ -51,6 +51,8 @@ public class PlayerStats : MonoBehaviour
 
     private CapsuleCollider bagCollider;
 
+    private string facing;
+
     // Use this for initialization
     void Start ()
     {
@@ -66,6 +68,8 @@ public class PlayerStats : MonoBehaviour
         candyCapacity = 10;
         defense = 1;
         isInvincible = false;
+
+        facing = "up";
     }
 	
 	// Update is called once per frame
@@ -160,6 +164,55 @@ public class PlayerStats : MonoBehaviour
     {
 
         rb.velocity = new Vector3(speed * Input.GetAxis("Horizontal"), 0, speed * Input.GetAxis("Vertical"));
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            facing = "left";
+        } else if (Input.GetKeyDown(KeyCode.S))
+        {
+            facing = "down";
+        } else if (Input.GetKeyDown(KeyCode.W))
+        {
+            facing = "up";
+        } else if (Input.GetKeyDown(KeyCode.D))
+        {
+            facing = "right";
+        }
+        else if (Input.GetAxis("Horizontal") > 0)
+        {
+            facing = "right";
+        } else if (Input.GetAxis("Horizontal") < 0)
+        {
+            facing = "left";
+        }
+        else if (Input.GetAxis("Vertical") > 0)
+        {
+            facing = "up";
+        }
+        else if (Input.GetAxis("Horizontal") < 0)
+        {
+            facing = "down";
+        }
+
+        //Debug.Log(facing);
+        //switch (facing)
+        //{
+        //    case "up":
+        //        this.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        //        break;
+
+        //    case "down":
+        //        this.transform.eulerAngles = new Vector3(0f, 0f, 180f);
+        //        break;
+
+        //    case "left":
+        //        this.transform.eulerAngles = new Vector3(0f, 0f, -90f);
+        //        break;
+
+        //    case "right":
+        //        this.transform.eulerAngles = new Vector3(0f, 0f, 90f);
+        //        break;
+        //}
+
         //rb.position += rb.velocity;
     }
 
@@ -224,7 +277,8 @@ public class PlayerStats : MonoBehaviour
     {
         if(rotateBag)
         {
-            float angle = bag.transform.rotation.eulerAngles.y;
+            float angle = bag.transform.localEulerAngles.y;
+            Debug.Log(angle);
             if (angle > 180)
             {
                 angle = angle - 360;
@@ -243,7 +297,6 @@ public class PlayerStats : MonoBehaviour
             } else
             {
                 bag.transform.RotateAround(this.transform.position, Vector3.up, bagAngularVelocity * Time.deltaTime);
-                Debug.Log(angle);
                 if (angle > 45f)
                 {
                     bag.transform.RotateAround(this.transform.position, Vector3.up, 45 - angle);
