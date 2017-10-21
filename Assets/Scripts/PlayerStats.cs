@@ -6,40 +6,33 @@ public class PlayerStats : MonoBehaviour
 {
     public float speed { get; private set; }
     public bool canMove = true;
-    private uint candyAmt = 1;
+    private float candyAmt = 1;
     private bool isKnockedBack = false;
-    private bool isInvincible = false;
-<<<<<<< HEAD
+    public bool isInvincible = false;
     private Rigidbody rb;
-=======
-    private uint knockedTimer;
-    private uint invincibilityTimer;
->>>>>>> 37312b7b5a01c4d7d6f0d05c1883a066f9eb60eb
+    private float invincibilityTimer;
     [SerializeField]
-    private uint defense;
+    private float defense;
     [SerializeField]
-    private uint candyCapacity;
+    private float candyCapacity;
     [SerializeField]
-    private uint maxDefense;
+    private float maxDefense;
     [SerializeField]
     private float maxSpeed;
     [SerializeField]
-    private uint maxCandyCapacity;
+    private float maxCandyCapacity;
     [SerializeField]
     private float knockBackDistance;
     [SerializeField]
     private float timeKnocked = 0.5f;
     [SerializeField]
-    private float timeInvincible = 5f;
+    private float timeInvincible = 1f;
     [SerializeField]
     private float initialKnockbackVelocity;
 
-<<<<<<< HEAD
     private float knockAcceleration;
     private float knockedTimer;
     private Vector3 knockedDirection;
-=======
->>>>>>> 37312b7b5a01c4d7d6f0d05c1883a066f9eb60eb
 
     // Use this for initialization
     void Start ()
@@ -61,21 +54,21 @@ public class PlayerStats : MonoBehaviour
     {
         //Call GameManager object that kills the player
     }
-    public void UpgradeSpeed(uint increaseAmt)
+    public void UpgradeSpeed(float increaseAmt)
     {
         if (speed + increaseAmt >= maxSpeed)
             speed = maxSpeed;
         else
             speed += increaseAmt;
     }
-    public void UpgradeDefense(uint increaseAmt)
+    public void UpgradeDefense(float increaseAmt)
     {
         if (defense + increaseAmt >= maxDefense)
             defense = maxDefense;
         else
             defense += increaseAmt;   
     }
-    public void UpgradeCandyCapacity(uint increaseAmt)
+    public void UpgradeCandyCapacity(float increaseAmt)
     {
         if (candyCapacity + increaseAmt >= maxCandyCapacity)
             candyCapacity = maxCandyCapacity;
@@ -83,7 +76,7 @@ public class PlayerStats : MonoBehaviour
             candyCapacity += increaseAmt;
     }
 
-    public void TakeDamage(uint damageAmt)
+    public void TakeDamage(float damageAmt)
     {
         if (!isInvincible)
         {
@@ -91,31 +84,38 @@ public class PlayerStats : MonoBehaviour
             //Spawn Candy
         }
     }
-    public void AddCandy(uint addedCandy)
+    public void AddCandy(float addedCandy)
     {
         candyAmt += addedCandy;
     }
 
     public void MoveForward()
     {
-        transform.position += Vector3.forward * Time.deltaTime * speed;
+        //transform.position += Vector3.forward * Time.deltaTime * speed;
+        rb.velocity = speed * Vector3.forward;
     }
     public void MoveBack()
     {
-        transform.position += Vector3.back * Time.deltaTime * speed;
+        //transform.position += Vector3.back * Time.deltaTime * speed;
+        rb.velocity = speed * Vector3.back;
     }
     public void MoveLeft()
     {
-        transform.position += Vector3.left * Time.deltaTime * speed;
+        //transform.position += Vector3.left * Time.deltaTime * speed;
+        rb.velocity = speed * Vector3.left;
     }
     public void MoveRight()
     {
-        transform.position += Vector3.right * Time.deltaTime * speed;
+        //transform.position += Vector3.right * Time.deltaTime * speed;
+        rb.velocity = speed * Vector3.right;
+    }
+    public void NotMoving()
+    {
+        rb.velocity = new Vector3(0f, 0f, 0f);
     }
 
     public void setKnockedBack(bool b, Vector3 unitDirection)
     {
-        Debug.Log(unitDirection);
         if (b)
         {
             isKnockedBack = true;
@@ -140,7 +140,6 @@ public class PlayerStats : MonoBehaviour
 
             // Update Knockback Timer
             knockedTimer -= Time.deltaTime;
-            Debug.Log(knockedTimer);
             if (knockedTimer < 0)
             {
                 setKnockedBack(false, new Vector3(0f, 0f, 0f));
@@ -164,7 +163,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (isInvincible)
         {
-            invincibilityTimer -= (uint)Time.deltaTime;
+            invincibilityTimer -= Time.deltaTime;
             if(invincibilityTimer < 0)
             {
                 isInvincible = false;

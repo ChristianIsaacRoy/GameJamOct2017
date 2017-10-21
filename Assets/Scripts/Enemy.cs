@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-
+    
     public GameObject focus;
 
     public float room_level = 1;
@@ -19,10 +19,16 @@ public class Enemy : MonoBehaviour {
     private float base_aggression_range = 10.0f;
     private float current_aggression_range = 10.0f;
 
-    private float base_movement_speed = 0.1f;
-    private float current_movement_speed = 0.1f;
+    [SerializeField]
+    private float base_movement_speed = 0.04f;
+    [SerializeField]
+    private float current_movement_speed = 0.04f;
 
+    [SerializeField]
     private int enemy_type;
+
+    private Rigidbody rb;
+
     enum ENEMY_TYPE
     {
         TYPE_1,
@@ -33,6 +39,9 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
+        rb = GetComponent<Rigidbody>();
+
         enemy_type = Random.Range(0, 3);
 
         if (enemy_type.Equals(ENEMY_TYPE.TYPE_1))
@@ -64,12 +73,13 @@ public class Enemy : MonoBehaviour {
 
         getFocus();
 
+        rb.velocity = new Vector3(0f, 0f, 0f);
+
         if (CheckPosition())
         {
             transform.position = Vector3.MoveTowards(transform.position, focus.transform.position, current_movement_speed);
             FaceObject();
         }
-        Hit();
 
 
 	}
@@ -81,24 +91,24 @@ public class Enemy : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    public void Hit()
-    {
+    //public void Hit()
+    //{
 
-        if (Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= 1.2)
-        {
+    //    if (Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= 1.2)
+    //    {
 
-            focus.SendMessage("TakeDamage", current_attack);
-            Die();
+    //        focus.SendMessage("TakeDamage", current_attack);
+    //        Die();
 
-        }
+    //    }
 
-    }
+    //}
 
     public bool CheckPosition()
     {
 
         bool isClose = false;
-        if(Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= current_aggression_range)
+        if (Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= current_aggression_range)
         {
             isClose = true;
         }
@@ -108,7 +118,7 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
 
-        Destroy(this);
+        //Destroy(this);
 
     }
 

@@ -1,9 +1,11 @@
 fileFormatVersion: 2
-guid: b0cbb4849fcf2b642b0e00233b5d7660
+guid: 29283e281a048844c9dc394ec22c7bae
+timeCreated: 1508564030
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
+    100000: imagePlane1
     100002: pCube1
     100004: pCube10
     100006: pCube11
@@ -93,7 +95,8 @@ ModelImporter:
     100174: transform7
     100176: transform8
     100178: transform9
-    400000: //RootNode
+    100180: //RootNode
+    400000: imagePlane1
     400002: pCube1
     400004: pCube10
     400006: pCube11
@@ -183,6 +186,7 @@ ModelImporter:
     400174: transform7
     400176: transform8
     400178: transform9
+    400180: //RootNode
     2300000: polySurface11
     3300000: polySurface11
     4300000: polySurface11
