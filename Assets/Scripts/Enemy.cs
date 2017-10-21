@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviour {
             current_attack = base_attack + room_level;
             current_movement_speed = (Mathf.Floor((room_level) / 5) * base_movement_speed * 2 + base_movement_speed);
             current_aggression_range = (Mathf.Floor(room_level / 3) * base_aggression_range + base_aggression_range);
+            health = 5;
         }
         if (enemy_type.Equals(ENEMY_TYPE.TYPE_2))
         {
@@ -59,6 +60,7 @@ public class Enemy : MonoBehaviour {
             current_attack = base_attack + room_level * 1.25f;
             current_movement_speed = ((Mathf.Floor((room_level) / 5) * base_movement_speed / 3) + (base_movement_speed / 3));
             current_aggression_range = ((Mathf.Floor(room_level / 3) * base_aggression_range * 3) + (base_aggression_range * 3));
+            health = 5;
         }
         if (enemy_type.Equals(ENEMY_TYPE.TYPE_3))
         {
@@ -66,6 +68,7 @@ public class Enemy : MonoBehaviour {
             current_attack = base_attack + room_level;
             current_movement_speed = (Mathf.Floor((room_level) / 5) * base_movement_speed + base_movement_speed);
             current_aggression_range = (Mathf.Floor(room_level / 3) * base_aggression_range + base_aggression_range);
+            health = 5;
         }
 
     }

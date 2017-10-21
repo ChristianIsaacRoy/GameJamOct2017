@@ -403,6 +403,15 @@ ModelImporter:
     100790: Window:transform7
     100792: Window:transform8
     100794: Window:transform9
+    100796: pCube11
+    100798: pCube12
+    100800: pCube13
+    100802: pCube14
+    100804: pCube15
+    100806: transform79
+    100808: transform80
+    100810: transform81
+    100812: transform82
     400000: Candleholderv1:pCylinder2
     400002: Candleholderv1:pCylinder3
     400004: Candleholderv1:pCylinder4
@@ -801,6 +810,15 @@ ModelImporter:
     400790: Window:transform7
     400792: Window:transform8
     400794: Window:transform9
+    400796: pCube11
+    400798: pCube12
+    400800: pCube13
+    400802: pCube14
+    400804: pCube15
+    400806: transform79
+    400808: transform80
+    400810: transform81
+    400812: transform82
     2300000: Candleholderv1:polySurface2
     2300002: Candlev1:pCylinder5
     2300004: Clockv2:polySurface12
@@ -823,6 +841,7 @@ ModelImporter:
     2300038: polySurface13
     2300040: polySurface2
     2300042: Window:polySurface11
+    2300044: pCube15
     3300000: Candleholderv1:polySurface2
     3300002: Candlev1:pCylinder5
     3300004: Clockv2:polySurface12
@@ -845,6 +864,7 @@ ModelImporter:
     3300038: polySurface13
     3300040: polySurface2
     3300042: Window:polySurface11
+    3300044: pCube15
     4300000: pCube1
     4300002: pCube2
     4300004: pCube4
@@ -867,6 +887,7 @@ ModelImporter:
     4300038: pCylinder8
     4300040: pCylinder9
     4300042: pCylinder10
+    4300044: pCube15
     9500000: //RootNode
   materials:
     importMaterials: 1
