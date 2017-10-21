@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
                 player.MoveRight();
         }
     }
-<<<<<<< HEAD
 
     private void Attack()
     {
@@ -46,12 +45,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log(collision.GetType());
         if(collision.GetType() == null)
         {
-            
+            player.setKnockedBack(true);
         }
     }
 
 
 
-=======
->>>>>>> 17bec37227080de20838f4cd9c11a265dc3982c8
+
 }
