@@ -24,6 +24,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private uint timeInvincible = 5;
 
+    private uint knockedTimer;
+
     // Use this for initialization
     void Start ()
     {
@@ -33,8 +35,9 @@ public class PlayerStats : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        KnockedBack();
+        
+    }
 
     private void Die()
     {
@@ -93,23 +96,47 @@ public class PlayerStats : MonoBehaviour
     {
         transform.position += Vector3.right * Time.deltaTime * speed;
     }
+
+    public void setKnockedBack(bool b)
+    {
+        if (b)
+        {
+            isKnockedBack = true;
+            canMove = false;
+            knockedTimer = timeKnocked;
+        } else
+        {
+            canMove = true;
+            isKnockedBack = false;
+        }
+    }
+
     private void KnockedBack()
     {
-        canMove = false;
-        //Add Knockback
-        while(timeKnocked > 0)
+        if (isKnockedBack)
         {
-            timeKnocked -= (uint)Time.deltaTime;
+            // Make some knockback movement
+
+            knockedTimer -= (uint)Time.deltaTime;
+            if (knockedTimer < 0)
+            {
+                setKnockedBack(false);
+            }
         }
-        canMove = true;
     }
+
+
+
     private void GetInvincibility()
     {
         isInvincible = true;
-        while(timeInvincible > 0)
+        if (timeInvincible > 0)
         {
             timeInvincible -= (uint)Time.deltaTime;
         }
-        isInvincible = false;
+        else
+        {
+            isInvincible = false;
+        }
     }
 }
