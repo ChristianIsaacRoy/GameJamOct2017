@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour {
 
         if (Mathf.Sqrt(Mathf.Pow(transform.position.x - focus.transform.position.x, 2) + Mathf.Pow(transform.position.y - focus.transform.position.y, 2) + Mathf.Pow(transform.position.z - focus.transform.position.z, 2)) <= 1.2)
         {
-            gameObject.SendMessage("TakeDamage");
+            //gameObject.SendMessage("TakeDamage");
             //Die();
 
         }

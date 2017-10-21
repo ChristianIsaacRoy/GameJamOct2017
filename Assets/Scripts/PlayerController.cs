@@ -39,10 +39,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collision Has Occured!");
-        //if(collision.GetType() = Enemy)
-        //{
+        Debug.Log(collision.GetType());
+        if(collision.GetType() == null)
+        {
             
-        //}
+        }
     }
 
 
