@@ -125,6 +125,7 @@ public class PlayerStats : MonoBehaviour
             candyAmt -= damageAmt - defense;
             if (candyAmt <= 0)
             {
+                candyAmt = 0;
                 Die();
             }
             GameObject go = Instantiate( candy, transform.position,transform.rotation);
