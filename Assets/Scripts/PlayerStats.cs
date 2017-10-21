@@ -1,9 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+<<<<<<< HEAD
+    public Rigidbody bag;
+    private bool bagIsRight;
+    public bool rotateBag;
+
+=======
+    public Text amtCandyText;
+    public Text amtCandyCapacityText;
+>>>>>>> 00d7fbbdcdac2f23b35c27757b2f959646e5e12d
     public float speed { get; private set; }
     public bool canMove = true;
     private float candyAmt = 1;
@@ -29,6 +39,12 @@ public class PlayerStats : MonoBehaviour
     private float timeInvincible = 1f;
     [SerializeField]
     private float initialKnockbackVelocity;
+    [SerializeField]
+    private float bagAngularVelocity = 270;
+    [SerializeField]
+    public float damage;
+    [SerializeField]
+    private float baseDamage;
 
     private float knockAcceleration;
     private float knockedTimer;
@@ -41,13 +57,20 @@ public class PlayerStats : MonoBehaviour
         speed = 5;
         knockAcceleration = 2 * (knockBackDistance - initialKnockbackVelocity * timeKnocked) / (timeKnocked * timeKnocked);
         Debug.Log(knockAcceleration);
+        bagIsRight = false;
+        baseDamage = 10;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        amtCandyText.text = candyAmt.ToString();
+        amtCandyCapacityText.text = candyCapacity.ToString();
         KnockedBack();
-        TestInvincibility();      
+        TestInvincibility();
+        bag.velocity = rb.velocity;
+        RotateBag();
+        damage = baseDamage * (candyAmt);
     }
 
     private void Die()
@@ -93,21 +116,25 @@ public class PlayerStats : MonoBehaviour
     {
         //transform.position += Vector3.forward * Time.deltaTime * speed;
         rb.velocity = speed * Vector3.forward;
+        bag.velocity = rb.velocity;
     }
     public void MoveBack()
     {
         //transform.position += Vector3.back * Time.deltaTime * speed;
         rb.velocity = speed * Vector3.back;
+        bag.velocity = rb.velocity;
     }
     public void MoveLeft()
     {
         //transform.position += Vector3.left * Time.deltaTime * speed;
         rb.velocity = speed * Vector3.left;
+        bag.velocity = rb.velocity;
     }
     public void MoveRight()
     {
         //transform.position += Vector3.right * Time.deltaTime * speed;
         rb.velocity = speed * Vector3.right;
+        bag.velocity = rb.velocity;
     }
     public void NotMoving()
     {
@@ -167,6 +194,39 @@ public class PlayerStats : MonoBehaviour
             if(invincibilityTimer < 0)
             {
                 isInvincible = false;
+            }
+        }
+    }
+
+    private void RotateBag()
+    {
+        if(rotateBag)
+        {
+            float angle = bag.transform.rotation.eulerAngles.y;
+            if (angle > 180)
+            {
+                angle = angle - 360;
+            }
+            if (bagIsRight)
+            {
+                bag.transform.RotateAround(this.transform.position, Vector3.up, -bagAngularVelocity * Time.deltaTime);
+                
+                if (angle < -45f)
+                {
+                    bag.transform.RotateAround(this.transform.position, Vector3.up, -45 - angle);
+                    bagIsRight = false;
+                    rotateBag = false;
+                }
+            } else
+            {
+                bag.transform.RotateAround(this.transform.position, Vector3.up, bagAngularVelocity * Time.deltaTime);
+                Debug.Log(angle);
+                if (angle > 45f)
+                {
+                    bag.transform.RotateAround(this.transform.position, Vector3.up, 45 - angle);
+                    bagIsRight = true;
+                    rotateBag = false;
+                }
             }
         }
     }

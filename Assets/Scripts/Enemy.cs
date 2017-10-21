@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour {
     
     public GameObject focus;
 
+    public float health;
+
     public float room_level = 1;
 
     public float base_attack = 1;
@@ -118,8 +120,17 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
 
-        //Destroy(this);
+        Destroy(this);
 
+    }
+
+    public void Damage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Die();
+        }
     }
 
     public void getFocus()
