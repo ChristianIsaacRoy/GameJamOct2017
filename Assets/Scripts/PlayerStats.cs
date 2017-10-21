@@ -73,6 +73,10 @@ public class PlayerStats : MonoBehaviour
         candyCapacity = 10;
         defense = 1;
         isInvincible = false;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d458e3f8b9ec8a99143683877b4a136c01aae35b
         facing = "up";
         costOfUpgrade = 1;
     }
@@ -92,6 +96,7 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         //Call GameManager object that kills the player
+        SoundEffectManager.instance.PlayDie();
         GameManager.instance.PlayerDead();
     }
     public void UpgradeSpeed(float increaseAmt)
@@ -123,6 +128,7 @@ public class PlayerStats : MonoBehaviour
     {
         Debug.Log(damageAmt);
         Debug.Log(isInvincible);
+        SoundEffectManager.instance.PlayTakeDamage();
         if (!isInvincible)
         {
             candyAmt -= damageAmt - defense;
@@ -139,6 +145,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void AddCandy(float addedCandy)
     {
+        SoundEffectManager.instance.PlayGetCandy();
         if (candyAmt + addedCandy > candyCapacity)
             candyAmt = candyCapacity;
         else 

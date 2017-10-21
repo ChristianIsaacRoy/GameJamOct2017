@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class SoundEffectManager : MonoBehaviour {
 
+    public static SoundEffectManager instance;
+
     public AudioSource takeDamageSFX;
     public AudioSource swingSFX;
     public AudioSource dieSFX;
     public AudioSource getCandySFX;
 
-	// Use this for initialization
-	void Start () {
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
